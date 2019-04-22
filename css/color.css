@@ -1,0 +1,66 @@
+/* Color Theme Swatches in Hex */
+.discord-dark-1-hex { color: #383B40; }
+.discord-dark-2-hex { color: #7EB0F2; }
+.discord-dark-3-hex { color: #2173A6; }
+.discord-dark-4-hex { color: #746DA0; }
+.discord-dark-5-hex { color: #5C9EC0; }
+
+/* Color Theme Swatches in RGBA */
+.discord-dark-1-rgba { color: rgba(56, 59, 64, 1); }
+.discord-dark-2-rgba { color: rgba(126, 176, 242, 1); }
+.discord-dark-3-rgba { color: rgba(33, 115, 166, 1); }
+.discord-dark-4-rgba { color: rgba(116, 109, 160, 1); }
+.discord-dark-5-rgba { color: rgba(92, 158, 192, 1); }
+
+/* Color Theme Swatches in HSLA */
+.discord-dark-1-hsla { color: hsla(217, 6, 23, 1); }
+.discord-dark-2-hsla { color: hsla(214, 81, 72, 1); }
+.discord-dark-3-hsla { color: hsla(203, 66, 39, 1); }
+.discord-dark-4-hsla { color: hsla(248, 21, 52, 1); }
+.discord-dark-5-hsla { color: hsla(200, 44, 55, 1); }
+
+/* Color Theme Swatches in Hex */
+.skype-dark-1-hex { color: #545459; }
+.skype-dark-2-hex { color: #212233; }
+.skype-dark-3-hex { color: #0C0C0D; }
+.skype-dark-4-hex { color: #393B59; }
+.skype-dark-5-hex { color: #9C9CA6; }
+
+/* Color Theme Swatches in RGBA */
+.skype-dark-1-rgba { color: rgba(84, 84, 89, 1); }
+.skype-dark-2-rgba { color: rgba(33, 34, 51, 1); }
+.skype-dark-3-rgba { color: rgba(12, 12, 13, 1); }
+.skype-dark-4-rgba { color: rgba(57, 59, 89, 1); }
+.skype-dark-5-rgba { color: rgba(156, 156, 166, 1); }
+
+/* Color Theme Swatches in HSLA */
+.skype-dark-1-hsla { color: hsla(240, 2, 33, 1); }
+.skype-dark-2-hsla { color: hsla(236, 21, 16, 1); }
+.skype-dark-3-hsla { color: hsla(240, 4, 4, 1); }
+.skype-dark-4-hsla { color: hsla(236, 21, 28, 1); }
+.skype-dark-5-hsla { color: hsla(240, 5, 63, 1); }
+
+/* Color Theme Swatches in Hex */
+.suffix { color: #999999; }
+.deep { color: #008fc5; }
+.smitten { color: #BD4BBF; }
+.dawn { color: #F28749; }
+.moola { color: #227791; }
+
+.accent-dark-3-hex { color: #0C0C0D; }
+.accent-dark-4-hex { color: #049DD9; }
+
+
+/* Color Theme Swatches in RGBA */
+.accent-dark-1-rgba { color: rgba(189, 75, 191, 1); }
+.accent-dark-2-rgba { color: rgba(193, 137, 217, 1); }
+.accent-dark-3-rgba { color: rgba(12, 12, 13, 1); }
+.accent-dark-4-rgba { color: rgba(4, 157, 217, 1); }
+.accent-dark-5-rgba { color: rgba(242, 135, 73, 1); }
+
+/* Color Theme Swatches in HSLA */
+.accent-dark-1-hsla { color: hsla(298, 47, 52, 1); }
+.accent-dark-2-hsla { color: hsla(282, 51, 69, 1); }
+.accent-dark-3-hsla { color: hsla(240, 4, 4, 1); }
+.accent-dark-4-hsla { color: hsla(196, 96, 43, 1); }
+.accent-dark-5-hsla { color: hsla(22, 86, 61, 1); }

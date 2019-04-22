@@ -1,0 +1,59 @@
+
+/** font weights **/
+
+.fw1 {
+  font-weight: 900;
+  font-style: normal;
+}
+
+.fw2 {
+  font-weight: 700;
+  font-style: normal;
+}
+
+.fw3 {
+  font-weight: 500;
+  font-style: normal;
+}
+
+.fw4 {
+  font-weight: 400;
+  font-style: normal;
+}
+
+.fw5 {
+  font-weight: 300;
+  font-style: normal;
+}
+
+.fw6 {
+  font-weight: 200;
+  font-style: normal;
+}
+
+/** font sizes **/
+
+.fs1 {
+  font-size: 2.25em;
+}
+
+.fs2 {
+  font-size: 2em;
+}
+
+.fs3 {
+  font-size: 1.75em;
+}
+
+.fs4 {
+  font-size: 1.5em;
+}
+
+.fs5 {
+  font-size: 1.25em;
+}
+
+.fs6 {
+  font-size: 1em;
+}
+
