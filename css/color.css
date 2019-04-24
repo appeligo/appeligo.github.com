@@ -1,8 +1,14 @@
 
 :root {
+    
     --main-back-color: #27293d;
     --main-fore-color: #cbcbcb;
-    
+
+    --topnav-back-color: #1b1c2c;
+    --topnav-fore-color: #cbcbcb;
+    --topnav-back-color-hover: #0e0f1a;
+    --topnav-fore-color-hover: #cbcbcb;
+
     --card-bg-color: #212233;
     --card-bg-color-hover: #1b1c2c;
 
