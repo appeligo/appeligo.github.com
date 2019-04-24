@@ -1,4 +1,3 @@
-  
   html {
     background-color: var(--main-back-color);
     color: var(--main-fore-color);
@@ -22,9 +21,10 @@
 
   * {
     box-sizing: border-box;
-  }   
+  }
 
-    /* Style the top navigation bar */
+  /* Style the top navigation bar */
+
   .topnav {
     overflow: hidden;
     background-color: var(--topnav-back-color);
@@ -34,6 +34,7 @@
   }
 
   /* Style the topnav links */
+
   .topnav a {
     display: block;
     text-align: center;
@@ -43,6 +44,7 @@
   }
 
   /* Change color on hover */
+
   .topnav a:hover {
     background-color: var(--topnav-back-color-hover);
     color: var(--topnav-fore-color-hover);
@@ -64,15 +66,14 @@
     width: 400px;
     border-radius: 5px;
   }
-  
+
   div.card:hover {
     background-color: var(--card-bg-color-hover);
     box-shadow: 0 8px 16px 0 var(--card-shadow-color-hover);
     cursor: pointer;
   }
-  
-  a.card,
-  a.card:hover {
+
+  a.card, a.card:hover {
     color: inherit;
     text-decoration: none;
   }
@@ -81,4 +82,8 @@
     padding: 2px 16px;
   }
 
-
+  .footer {
+    padding: 20px;
+    text-align: center;
+    background: #ddd;
+  }
