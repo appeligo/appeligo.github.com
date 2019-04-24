@@ -1,7 +1,7 @@
   
   html {
-    background-color: #27293d;
-    color: #cbcbcb;
+    background-color: var(--main-back-color);
+    color: var(--main-fore-color);
   }
 
   body {
