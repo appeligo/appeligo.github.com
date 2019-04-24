@@ -1,7 +1,6 @@
   
   html {
     background-color: #27293d;
-    /*background-color: #07090d;*/
     color: #cbcbcb;
   }
 
@@ -14,7 +13,6 @@
     min-height: 0px;
     height: auto;
     text-align: center;
-    overflow: hidden;
   }
 
   p {
@@ -29,11 +27,6 @@
     justify-content: center;
   }
 
-  .header {
-    width: 100%;
-    padding: 20px;
-  }
-  
   .card {
     margin: 10px;
     padding: 25px;
@@ -52,15 +45,4 @@
     padding: 2px 16px;
   }
 
-  .flare-div-allowme {
-    border: 0;
-  }
-
-  .flare-iframe-allowme {
-    border: 0;
-    transform-origin: top;
-    transform: scale(.5);
-    width: 768px;
-    height: 1580px;
-  }
 
