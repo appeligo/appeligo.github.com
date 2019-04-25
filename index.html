@@ -79,10 +79,26 @@
     <div style="float: left; width: 33%;">&nbsp;</div>
     <div style="float: left; width: 33%;">&nbsp;</div>
     <div style="float: left; width: 33%; text-align: right;">
-      <a href="https://appeligo.com"><img src="img/icon-dark.png" height="20" /></a>
+      <a href="https://appeligo.com">
+        <img src="img/icon-dark.png" height="20" />
+      </a>
     </div>
   </div>
-
+  
+  <script type="text/javascript">
+    if (navigator.serviceWorker != null) {
+      navigator.serviceWorker.register('sw.js')
+      .then(function(registration) {
+        console.log('Registered events at scope: ', registration.scope);
+      });
+    }
+    fetch('./data.json')
+    var statusEl = document.querySelector('#network-status')
+    if (!navigator.onLine) {
+      statusEl.classList = ['is-offline']
+      statusEl.innerText = 'Offline'
+    }
+  </script>
 </body>
 <script type="text/javascript" src="js/main.js"></script>
 
