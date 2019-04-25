@@ -61,7 +61,7 @@
     margin: 10px;
     padding: 25px;
     background-color: var(--card-bg-color);
-    box-shadow: 0 4px 8px 0 var(--card-shadow-color);
+    /*box-shadow: 0 4px 8px 0 var(--card-shadow-color);*/
     transition: 0.3s;
     width: 400px;
     border-radius: 5px;
@@ -69,7 +69,7 @@
 
   div.card:hover {
     background-color: var(--card-bg-color-hover);
-    box-shadow: 0 8px 16px 0 var(--card-shadow-color-hover);
+    /* box-shadow: 0 8px 16px 0 var(--card-shadow-color-hover); */
     cursor: pointer;
   }
 
