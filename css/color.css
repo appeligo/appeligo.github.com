@@ -14,6 +14,8 @@
 
     --card-shadow-color: #393B59;
     --card-shadow-color-hover: #393B59;
+
+    --footer-back-color: #313449;
 }
 
 .suffix { color: #999999; }
