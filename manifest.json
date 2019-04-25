@@ -3,12 +3,12 @@
     "name": "appeligo",
     "icons": [
       {
-        "src": "/img/icon-dark.png",
+        "src": "/img/icon-dark-192.png",
         "type": "image/png",
         "sizes": "192x192"
       },
       {
-        "src": "/img/icon-dark.png",
+        "src": "/img/icon-dark-512.png",
         "type": "image/png",
         "sizes": "512x512"
       }
