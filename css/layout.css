@@ -29,8 +29,8 @@
     overflow: hidden;
     background-color: var(--topnav-back-color);
     color: var(--topnav-fore-color);
-    margin-top: 5px;
-    margin-bottom: 5px;
+    margin: 5px 0px 5px 0px;
+    padding: 5px 20px 5px 20px;
   }
 
   /* Style the topnav links */
