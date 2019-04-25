@@ -3,19 +3,19 @@
     "name": "appeligo",
     "icons": [
       {
-        "src": "/img/icon-dark-192.png",
+        "src": "img/icon-dark-192.png",
         "type": "image/png",
         "sizes": "192x192"
       },
       {
-        "src": "/img/icon-dark-512.png",
+        "src": "img/icon-dark-512.png",
         "type": "image/png",
         "sizes": "512x512"
       }
     ],
-    "start_url": "/?source=pwa",
+    "start_url": "./index.html",
     "background_color": "#27293d",
     "display": "standalone",
-    "scope": "/",
+    "scope": "./",
     "theme_color": "#1b1c2c"
   }
