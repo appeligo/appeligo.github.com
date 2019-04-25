@@ -1,4 +1,3 @@
-
 /** font weights **/
 
 .fw1 {
@@ -57,3 +56,14 @@
   font-size: 1em;
 }
 
+.fs7 {
+  font-size: .75em;
+}
+
+.fs8 {
+  font-size: .5em;
+}
+
+.fs9 {
+  font-size: .25em;
+}
