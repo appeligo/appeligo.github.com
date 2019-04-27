@@ -1,12 +1,12 @@
 
 self.addEventListener('install', function(e) {
-  console.log('install')
+  // console.log('install')
 })
 
 self.addEventListener('activate', function(e) {
-  console.log('activate')
+  // console.log('activate')
 })
 
 self.addEventListener('fetch', function(e) {
-  console.log('fetch')
+  // console.log('fetch')
 })
