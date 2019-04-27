@@ -23,6 +23,15 @@ p {
   margin-block-end: 0em;
 }
 
+.site-icon {
+  margin: 5px;
+  height: 30px;
+}
+
+.site-name{
+  color: white;
+}
+
 .topnav {
   background-color: var(--topnav-back-color);
   color: var(--topnav-fore-color);

@@ -37,8 +37,12 @@
   <!-- End Google Tag Manager (noscript) -->
 
   <div class="topnav">
-    <div style="float:left;"><img src="img/icon-dark.png" style="height: 30px; margin: 5px;" /></div>
-    <div style="float:left; height: 50px;color: white;" class="fs2 fw3">appeligo</div>
+    <div style="float: left;">
+      <img class="site-icon" src="img/icon-dark.png" />
+    </div>
+    <div style="float: left;">
+      <p class="site-name fs2 fw3">appeligo</p>
+    </div>
   </div>
 
   <div class="flex-container">
@@ -88,9 +92,9 @@
   <script type="text/javascript">
     if (navigator.serviceWorker != null) {
       navigator.serviceWorker.register('sw.js')
-      .then(function(registration) {
-        console.log('Registered events at scope: ', registration.scope);
-      });
+        .then(function (registration) {
+          console.log('Registered events at scope: ', registration.scope);
+        });
     }
     fetch('./data.json')
     var statusEl = document.querySelector('#network-status')
