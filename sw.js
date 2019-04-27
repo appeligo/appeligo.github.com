@@ -1,17 +1,8 @@
 
 console.log('Script loaded!')
-var cacheStorageKey = 'minimal-pwa-8'
+var cacheStorageKey = 'appeligo-pwa-1'
 
-var cacheList = [
-  '/',
-  "index.html",
-  "css/color.css",
-  "css/font.css",
-  "css/layout.css",
-  "img/icon-dark.png",
-  "img/icon-dark-192.png",
-  "img/icon-dark-512.png"
-]
+var cacheList = [];
 
 self.addEventListener('install', function(e) {
   console.log('Cache event!')
