@@ -16,7 +16,6 @@ body {
   padding: 0px;
   min-height: 0px;
   height: auto;
-  text-align: center;
 }
 
 p {
@@ -24,16 +23,13 @@ p {
   margin-block-end: 0em;
 }
 
-/* Style the top navigation bar */
-
 .topnav {
-  overflow: hidden;
   background-color: var(--topnav-back-color);
   color: var(--topnav-fore-color);
+  overflow: hidden;
+  margin-top: 5px;
   padding: 5px;
 }
-
-/* Style the topnav links */
 
 .topnav a {
   display: block;
