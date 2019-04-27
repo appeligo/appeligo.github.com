@@ -40,21 +40,6 @@ p {
   padding: 5px;
 }
 
-.topnav a {
-  display: block;
-  text-align: center;
-  padding: 14px 16px;
-  color: inherit;
-  text-decoration: none;
-}
-
-/* Change color on hover */
-
-.topnav a:hover {
-  background-color: var(--topnav-back-color-hover);
-  color: var(--topnav-fore-color-hover);
-}
-
 .flex-container {
   display: flex;
   flex-flow: row wrap;
