@@ -1,3 +1,10 @@
+function validateResponse(response) {
+    if (!response.ok) {
+        throw Error(response.statusText);
+    }
+    return response;
+}
+
 function readResponseAsText(response) {
     return response.text();
 }
@@ -16,4 +23,4 @@ function fetchText(pathToResource) {
         .catch(logError);
 }
 
-fetchText('../words.txt');
+fetchText('/words.txt');
