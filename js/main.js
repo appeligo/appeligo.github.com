@@ -1,3 +1,11 @@
+function logResult(result) {
+    console.log(result);
+}
+
+function logError(error) {
+    console.error(error);
+}
+
 function validateResponse(response) {
     if (!response.ok) {
         throw Error(response.statusText);
