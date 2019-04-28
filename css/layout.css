@@ -28,6 +28,11 @@ p {
   height: 30px;
 }
 
+.user-icon {
+  border-radius: 50%;
+  height: 50px;
+}
+
 .site-name{
   color: white;
 }
