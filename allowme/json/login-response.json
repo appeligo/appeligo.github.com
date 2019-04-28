@@ -1,0 +1,59 @@
+{
+    "status": "success",
+    "data": {
+        "userId": "W5B9gsBXuacQhficc",
+        "authToken": "8d98awihxbklTh7DFbuKLWA6vDobDC9I1pJnyjslfQO",
+        "me": {
+            "_id": "W5B9gsBXuacQhficc",
+            "name": "Dirck Hecking",
+            "emails": [
+                {
+                    "address": "dhecking@gmail.com",
+                    "verified": false
+                }
+            ],
+            "status": "online",
+            "statusConnection": "online",
+            "username": "dhecking",
+            "utcOffset": -4,
+            "active": true,
+            "language": "",
+            "roles": [
+                "admin"
+            ],
+            "settings": {
+                "preferences": {
+                    "enableAutoAway": true,
+                    "idleTimeLimit": 300,
+                    "desktopNotificationDuration": 0,
+                    "audioNotifications": "mentions",
+                    "desktopNotifications": "default",
+                    "mobileNotifications": "default",
+                    "unreadAlert": true,
+                    "useEmojis": true,
+                    "convertAsciiEmoji": true,
+                    "autoImageLoad": true,
+                    "saveMobileBandwidth": true,
+                    "collapseMediaByDefault": false,
+                    "hideUsernames": false,
+                    "hideRoles": false,
+                    "hideFlexTab": false,
+                    "hideAvatars": false,
+                    "sidebarGroupByType": true,
+                    "sidebarViewMode": "extended",
+                    "sidebarHideAvatar": false,
+                    "sidebarShowUnread": false,
+                    "sidebarShowFavorites": true,
+                    "sendOnEnter": "normal",
+                    "messageViewMode": 0,
+                    "emailNotificationMode": "mentions",
+                    "roomCounterSidebar": false,
+                    "newRoomNotification": "door",
+                    "newMessageNotification": "chime",
+                    "muteFocusedConversations": true,
+                    "notificationsSoundVolume": 100
+                }
+            }
+        }
+    }
+}
