@@ -17,10 +17,23 @@ function readResponseAsText(response) {
     return response.text();
 }
 
+function readResponseAsJson(response) {
+    return response.json();
+}
+
 function showText(responseAsText) {
     // Assuming the DOM has a div with id 'message'
     var message = document.getElementById('words');
     message.textContent = responseAsText;
+}
+
+function showJson(json){
+    var message = document.getElementById('message');
+
+    var idx = Math.floor(Math.random() * json.quotes.length);
+    var quote = json.quotes[idx];
+    
+    message.textContent = quote.text;
 }
 
 function fetchText(pathToResource) {
@@ -31,4 +44,13 @@ function fetchText(pathToResource) {
         .catch(logError);
 }
 
-fetchText('/words.txt');
+function fetchJson(pathToResource) {
+    fetch(pathToResource)
+        .then(validateResponse)
+        .then(readResponseAsJson)
+        .then(showJson)
+        .catch(logError);
+}
+
+//fetchText('/words.txt');
+fetchJson('/quotes.json');
