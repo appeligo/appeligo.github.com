@@ -1,31 +1,31 @@
 {
     "quotes": [
         {
-            "page": 1,
+            "id": 1,
             "text": "The key to developing people is to catch them doing something right"
         },
         {
-            "page": 2,
+            "id": 2,
             "text": "People who produce good results feel good about themselves"
         },
         {
-            "page": 3,
+            "id": 3,
             "text": "Don't wait until people do things exactly right before you praise them"
         },
         {
-            "page": 4,
+            "id": 4,
             "text": "Feedback is the breakfast of champions"
         },
         {
-            "page": 5,
+            "id": 5,
             "text": "No one can make you feel inferior without your permission"
         },
         {
-            "page": 6,
+            "id": 6,
             "text": "None of us is as smart as all of us"
         },
         {
-            "page": 7,
+            "id": 7,
             "text": "Things not worth doing are not worth doing well"
         }
     ]

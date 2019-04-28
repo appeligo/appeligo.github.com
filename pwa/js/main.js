@@ -22,8 +22,7 @@ function readResponseAsJson(response) {
 }
 
 function showText(responseAsText) {
-    // Assuming the DOM has a div with id 'message'
-    var message = document.getElementById('words');
+    var message = document.getElementById('message');
     message.textContent = responseAsText;
 }
 
@@ -52,5 +51,5 @@ function fetchJson(pathToResource) {
         .catch(logError);
 }
 
-//fetchText('/words.txt');
-fetchJson('/quotes.json');
+//fetchText('/features.txt');
+fetchJson('/pwa/data/quotes.json');
