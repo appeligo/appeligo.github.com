@@ -3,6 +3,16 @@
     "name": "appeligo",
     "icons": [
       {
+        "src": "img/icon-dark-16.png",
+        "type": "image/png",
+        "sizes": "16x16"
+      },
+      {
+        "src": "img/icon-dark-32.png",
+        "type": "image/png",
+        "sizes": "32x32"
+      },
+      {
         "src": "img/icon-dark-192.png",
         "type": "image/png",
         "sizes": "192x192"
@@ -17,5 +27,5 @@
     "background_color": "#27293d",
     "display": "standalone",
     "scope": "/",
-    "theme_color": "#0d0e18"
+    "theme_color": "#27293d"
   }
