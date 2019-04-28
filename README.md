@@ -13,3 +13,7 @@
 ###### create
 ###### invest
 ###### launch 
+
+
+https://www.youtube.com/watch?time_continue=1&v=qnyOzXb_50Q
+https://www.artstation.com/artwork/o5ARm
