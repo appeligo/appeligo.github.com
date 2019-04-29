@@ -1,0 +1,24 @@
+{
+  "name": "appeligo",
+  "css_prefix_text": "icon-",
+  "css_use_suffix": false,
+  "hinting": true,
+  "units_per_em": 1000,
+  "ascent": 850,
+  "glyphs": [
+    {
+      "uid": "a761976a99b62e224379617054957a3e",
+      "css": "appeligo",
+      "code": 59392,
+      "src": "custom_icons",
+      "selected": true,
+      "svg": {
+        "path": "M500 1000L400 900 500 800 600 900ZM300 800L200 700 500 400 800 700 700 800 500 600ZM100 600L0 500 500 0 1000 500 900 600 500 200Z",
+        "width": 1000
+      },
+      "search": [
+        "icon-light"
+      ]
+    }
+  ]
+}
