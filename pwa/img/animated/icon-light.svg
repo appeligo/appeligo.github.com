@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-20 -20 500 500" id="el_j5XppXCx9" height="500" width="500"><style>@-webkit-keyframes kf_el_X9DOHqTiv4_an_jb0V5KziU{
+0%{-webkit-transform: translate(230px, 230px) scale(0, 0) translate(-230px, -230px);transform: translate(230px, 230px) scale(0, 0) translate(-230px, -230px);}
+100%{-webkit-transform: translate(230px, 230px) scale(1, 1) translate(-230px, -230px);transform: translate(230px, 230px) scale(1, 1) translate(-230px, -230px);}}
+@keyframes kf_el_X9DOHqTiv4_an_jb0V5KziU{
+0%{-webkit-transform: translate(230px, 230px) scale(0, 0) translate(-230px, -230px);transform: translate(230px, 230px) scale(0, 0) translate(-230px, -230px);}
+100%{-webkit-transform: translate(230px, 230px) scale(1, 1) translate(-230px, -230px);transform: translate(230px, 230px) scale(1, 1) translate(-230px, -230px);}}
+@-webkit-keyframes kf_el_X9DOHqTiv4_an_hIGaMNdP0{
+0%{opacity: 0;}
+100%{opacity: 1;}}
+@keyframes kf_el_X9DOHqTiv4_an_hIGaMNdP0{
+0%{opacity: 0;}
+100%{opacity: 1;}}
+#el_j5XppXCx9 *{-webkit-animation-duration: 2s;animation-duration: 2s;-webkit-animation-iteration-count: 1;animation-iteration-count: 1;-webkit-animation-timing-function: cubic-bezier(0, 0, 1, 1);animation-timing-function: cubic-bezier(0, 0, 1, 1);}
+#el_X9DOHqTiv4{fill: rgb(0, 0, 0);-webkit-animation-fill-mode: forwards;animation-fill-mode: forwards;opacity: 0;-webkit-animation-name: kf_el_X9DOHqTiv4_an_hIGaMNdP0;animation-name: kf_el_X9DOHqTiv4_an_hIGaMNdP0;-webkit-animation-timing-function: cubic-bezier(0, 0, 1, 1);animation-timing-function: cubic-bezier(0, 0, 1, 1);stroke-linecap: round;stroke: rgb(71, 59, 59);stroke-width: 5;stroke-linejoin: round;}
+#el_X9DOHqTiv4_an_jb0V5KziU{-webkit-animation-fill-mode: forwards;animation-fill-mode: forwards;-webkit-transform: translate(0px, 0px) scale(0, 0) translate(0px, 0px);transform: translate(0px, 0px) scale(0, 0) translate(0px, 0px);-webkit-animation-name: kf_el_X9DOHqTiv4_an_jb0V5KziU;animation-name: kf_el_X9DOHqTiv4_an_jb0V5KziU;-webkit-animation-timing-function: cubic-bezier(0, 0, 1, 1);animation-timing-function: cubic-bezier(0, 0, 1, 1);}</style>
+  <g id="el_X9DOHqTiv4_an_jb0V5KziU" data-animator-group="true" data-animator-type="2"><path d="M230 460l-46-46 46-46 46 46zm-92-92l-46-46 138-138 138 138-46 46-92-92zm-92-92L0 230 230 0l230 230-46 46L230 92z" id="el_X9DOHqTiv4"/></g>
+</svg>

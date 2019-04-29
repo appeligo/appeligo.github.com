@@ -1,9 +1,35 @@
 <html lang="en-US">
 
 <head>
-<meta http-equiv="refresh" content="5; URL='pwa'" />
+    <meta http-equiv="refresh" content="5; URL='/pwa/'" />
+    <link rel="stylesheet" href="/pwa/css/color.css" type="text/css" />
+    <link rel="stylesheet" href="/pwa/css/font.css" type="text/css" />
+    <link rel="stylesheet" href="/pwa/css/layout.css" type="text/css" />
+    <style>
+        body, html {
+            height: 100%;
+            display: grid;
+        }
+        span { /* thing to center */
+            margin: auto;
+        }
+    </style>
 </head>
+
 <body>
-    <h3>Let's make a badasss animated splash screen here, then head over to appeligo</h3>
+    
+    <span>
+        <img src="/pwa/img/animated/icon-dark.svg" style="height: 500px; width: 500px;"/>
+    </span>
+
+    <script type="text/javascript">
+        if (navigator.serviceWorker != null) {
+            navigator.serviceWorker.register('sw.js')
+                .then(function (registration) {
+                    console.log('Registered events at scope: ', registration.scope);
+                });
+        }
+    </script>
 </body>
+
 </html>
