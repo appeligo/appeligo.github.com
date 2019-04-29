@@ -53,3 +53,7 @@ function fetchJson(pathToResource) {
 
 //fetchText('/features.txt');
 fetchJson('/pwa/data/quotes.json');
+
+fetchProspects('/pwa/data/prospects.json'){
+
+}
