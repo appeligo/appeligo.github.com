@@ -27,7 +27,7 @@
 
 <body>
 
-    <div id="player" style="background-color: rgb(160, 8, 109); padding: 20px;">&nbsp;</div>
+    <div id="player" style="background-color: #212121; padding: 20px;">&nbsp;</div>
 
     <script>
 
@@ -65,24 +65,24 @@
             changeBorderColor(event.data);
         }
 
-        function onPlayerPlaybackQualityChange(event){
+        function onPlayerPlaybackQualityChange(event) {
             console.log(event.data);
         }
 
         function changeBorderColor(playerStatus) {
             var color;
             if (playerStatus == -1) {
-                color = "#37474F"; // unstarted = gray
+                color = "#0e3240"; // unstarted
             } else if (playerStatus == 0) {
-                color = "#FFFF00"; // ended = yellow
+                color = "#0e3240"; // ended 
             } else if (playerStatus == 1) {
-                color = "#33691E"; // playing = green
+                color = "#486860"; // playing = green
             } else if (playerStatus == 2) {
-                color = "#DD2C00"; // paused = red
+                color = "#42070f"; // paused = red
             } else if (playerStatus == 3) {
-                color = "#AA00FF"; // buffering = purple
+                color = "#bd4bbf"; // buffering = purple
             } else if (playerStatus == 5) {
-                color = "#FF6DOO"; // video cued = orange
+                color = "#623c06"; // video cued = orange
             }
             if (color) {
                 console.log("playerStatus: " + playerStatus);
