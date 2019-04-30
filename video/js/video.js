@@ -27,15 +27,15 @@ function onYouTubeIframeAPIReady() {
 window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
 
 function onPlayerReady(event) {
-    
-    
+
+
     // https://www.youtube.com/watch?v=lpIe95cS2JM&list=RDjUViyhRCi5U&index=4
     // v=dX87zWN2E4g
     // list=RDjUViyhRCi5U
     // index=2
 
-    event.target.playVideo();
-    //event.target.loadPlaylist('RDjUViyhRCi5U','playlist',0,0,'hd1080');
+
+    event.target.loadPlaylist('RDjUViyhRCi5U', 'playlist', 0, 0, 'hd1080');
 }
 
 function onPlayerError(event) {
@@ -51,24 +51,20 @@ function onPlayerPlaybackQualityChange(event) {
 }
 
 function changeBorderColor(playerStatus) {
-    var color;
-    if (playerStatus == -1) {
-        color = "#0e3240"; // unstarted
-    } else if (playerStatus == 0) {
-        color = "#0e3240"; // ended 
-    } else if (playerStatus == 1) {
-        color = "#486860"; // playing = green
-    } else if (playerStatus == 2) {
-        color = "#42070f"; // paused = red
-    } else if (playerStatus == 3) {
-        color = "#bd4bbf"; // buffering = purple
-    } else if (playerStatus == 5) {
-        color = "#623c06"; // video cued = orange
-    }
 
-    if (color) {
-        console.log("playerStatus: " + playerStatus);
-        document.getElementById('player').style.backgroundColor = color;
+    if (playerStatus == -1) {
+        console.log("unstarted");
+    } else if (playerStatus == 0) {
+        console.log("ended");
+    } else if (playerStatus == 1) {
+        console.log("playing");
+    } else if (playerStatus == 2) {
+        console.log("paused");
+    } else if (playerStatus == 3) {
+        console.log("buffering");
+    } else if (playerStatus == 5) {
+        console.log("cued");
+        event.target.playVideo();
     }
 }
 
