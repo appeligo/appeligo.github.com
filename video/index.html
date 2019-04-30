@@ -23,81 +23,16 @@
     <link rel="stylesheet" href="/pwa/css/font.css" type="text/css" />
     <link rel="stylesheet" href="/pwa/css/layout.css" type="text/css" />
 
+    <link rel="stylesheet" href="css/video.css" type="text/css" />
+    <script type="text/javascript" src="js/video.js"></script>
+
+
 </head>
 
 <body>
 
-    <div id="player" style="background-color: #212121; padding: 20px;">&nbsp;</div>
+    <div id="player">&nbsp;</div>
 
-    <script>
-
-        var player;
-
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('player', {
-                height: '100%',
-                width: '100%',
-                videoId: '2fngvQS_PmQ',
-                playerVars: {
-                    'autoplay': 1,
-                    'controls': 0,
-                    'modestbranding': 1,
-                    'rel': 0
-                },
-                events: {
-                    'onReady': onPlayerReady,
-                    'onError': onPlayerError,
-                    'onStateChange': onPlayerStateChange,
-                    'onPlaybackQualityChange': onPlayerPlaybackQualityChange
-                }
-            });
-        }
-
-        window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
-
-        function onPlayerReady(event) {
-            event.target.playVideo();
-        }
-
-        function onPlayerError(event) {
-            console.error(event.data);
-        }
-
-        function onPlayerStateChange(event) {
-            changeBorderColor(event.data);
-        }
-
-        function onPlayerPlaybackQualityChange(event) {
-            console.log(event.data);
-        }
-
-        function changeBorderColor(playerStatus) {
-            var color;
-            if (playerStatus == -1) {
-                color = "#0e3240"; // unstarted
-            } else if (playerStatus == 0) {
-                color = "#0e3240"; // ended 
-            } else if (playerStatus == 1) {
-                color = "#486860"; // playing = green
-            } else if (playerStatus == 2) {
-                color = "#42070f"; // paused = red
-            } else if (playerStatus == 3) {
-                color = "#bd4bbf"; // buffering = purple
-            } else if (playerStatus == 5) {
-                color = "#623c06"; // video cued = orange
-            }
-            if (color) {
-                console.log("playerStatus: " + playerStatus);
-                document.getElementById('player').style.backgroundColor = color;
-            }
-        }
-
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        document.head.appendChild(tag);
-
-
-    </script>
 </body>
 
 </html>
