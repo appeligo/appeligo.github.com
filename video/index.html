@@ -27,10 +27,10 @@
 
 <body>
 
-    <div id="player">
-    </div>
+    <div id="player" style="background-color: rgb(160, 8, 109); padding: 20px;">&nbsp;</div>
 
     <script>
+
         var player;
 
         function onYouTubeIframeAPIReady() {
@@ -38,8 +38,15 @@
                 height: '100%',
                 width: '100%',
                 videoId: '2fngvQS_PmQ',
+                playerVars: {
+                    'autoplay': 1,
+                    'controls': 0
+                },
                 events: {
-                    'onReady': onPlayerReady
+                    'onReady': onPlayerReady,
+                    'onError': onPlayerError,
+                    'onStateChange': onPlayerStateChange,
+                    'onPlaybackQualityChange': onPlayerPlaybackQualityChange
                 }
             });
         }
@@ -48,6 +55,39 @@
 
         function onPlayerReady(event) {
             event.target.playVideo();
+        }
+
+        function onPlayerError(event) {
+            console.error(event.data);
+        }
+
+        function onPlayerStateChange(event) {
+            changeBorderColor(event.data);
+        }
+
+        function onPlayerPlaybackQualityChange(event){
+            console.log(event.data);
+        }
+
+        function changeBorderColor(playerStatus) {
+            var color;
+            if (playerStatus == -1) {
+                color = "#37474F"; // unstarted = gray
+            } else if (playerStatus == 0) {
+                color = "#FFFF00"; // ended = yellow
+            } else if (playerStatus == 1) {
+                color = "#33691E"; // playing = green
+            } else if (playerStatus == 2) {
+                color = "#DD2C00"; // paused = red
+            } else if (playerStatus == 3) {
+                color = "#AA00FF"; // buffering = purple
+            } else if (playerStatus == 5) {
+                color = "#FF6DOO"; // video cued = orange
+            }
+            if (color) {
+                console.log("playerStatus: " + playerStatus);
+                document.getElementById('player').style.backgroundColor = color;
+            }
         }
 
         var tag = document.createElement('script');
