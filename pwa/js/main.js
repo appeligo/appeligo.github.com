@@ -26,12 +26,12 @@ function showText(responseAsText) {
     message.textContent = responseAsText;
 }
 
-function showJson(json){
+function showJson(json) {
     var message = document.getElementById('message');
 
     var idx = Math.floor(Math.random() * json.quotes.length);
     var quote = json.quotes[idx];
-    
+
     message.textContent = quote.text;
 }
 
@@ -54,6 +54,4 @@ function fetchJson(pathToResource) {
 //fetchText('/features.txt');
 fetchJson('/pwa/data/quotes.json');
 
-fetchProspects('/pwa/data/prospects.json'){
-
-}
+//fetchProspects('/pwa/data/prospects.json');
