@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Psychedelic Waves</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+		<meta name="author" content="squee">
+		<style type="text/css">
+			body,html{     
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+				-khtml-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;  
+				overflow: hidden;		
+			}
+			canvas {
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+
+			@keyframes fadeout {
+				0% {
+					opacity: 1;
+					visibility: visible;
+				}
+				50% {
+					opacity: 1;
+				}
+				100% {
+					opacity: 0;
+					visibility: hidden;
+				}
+			}
+			#hint {
+				position: absolute; 
+				top: 10px; 
+				left: 0; 
+				right: 0; 
+				text-align: center;
+				font-family:sans-serif; 
+				color: white; 
+				visibility: hidden;
+				text-shadow: 0 0 3px black; 
+				font-size: 18px; 
+				z-index: 9;
+			}
+			#hint.fadeout {
+				opacity: 0;
+				animation-iteration-count: 1;
+				animation-direction: normal;
+				animation: fadeout 4s;
+			}
+		</style> 
+	</head>
+	<body>
+		<canvas id="canvas" style="position: absolute; top: 0; left:0; "></canvas>
+		<!--<div id="overlay" style="position: absolute; top: 0; left:0; right:0; bottom: 0; background: rgba( 0, 0, 0, 0.7 ); display: none "></div>
+		<div id="hint" class="" style="">Triple click desktop to darken/lighten.&nbsp;&nbsp;&nbsp;<span class="opactiy: 0;">Triple click desktop to darken/lighten.</span></div>-->
+		<!--<div id="fpsLabel" style="position: absolute; top: 0; left: 0; color: white; z-index: 10;"></div>-->
+
+		<script type="text/javascript">
+			// setup remarks
+			
+			// canvas rendered at 1.2x resolution and downscale for a bit smoother result
+			// canvas extends out of the monitor a little as scaling was causing rounding errors with the result of a white line on the screens edge
+			
+			
+			// uncomment all lines regarding fps to show, including the one below and the fpsLabel element
+			//var fpsLabel = document.getElementById( 'fpsLabel' );
+			//var overlay = document.getElementById( 'overlay' );
+			//var hint = document.getElementById( 'hint' );
+			
+			// for animation loop 		: search for the lines containing: self.animationLoop()
+			
+			// for lineWidth 			: search lineWidth .. linwidth <= 1 ( great cpu usage ) .. line width > 1 ( bad cpu usage )
+			// 								linewidth <= 1 shows visual glitch ( spikes )
+			
+			var overlayHidden = true;
+			var hintAnimation = null;
+			
+			/*
+			window.addEventListener('click', function (evt) {
+				if (evt.detail === 3) {
+					overlayHidden = !overlayHidden;
+					if( overlayHidden ) {
+						overlay.style.display = 'none';
+					}
+					else {
+						overlay.style.display = '';
+					}
+					if( hintAnimation ) {
+						clearTimeout( hintAnimation );
+					}
+					hint.className = '';
+					//setTimeout( function() { hint.className = 'fadeout'; }, 1 );
+					//hintAnimation = setTimeout( function() { hint.className = ''; }, 4000 );
+				}
+			});*/
+
+			/**
+			 * WavePoint class represents a control point on the bezier curve 
+			 **/
+			function wavePoint()
+			{
+				this.distanceFromStart = 0;
+				this.offsetX = 0;
+				this.offsetY = 0;
+				this.rotation = 0;
+				this.rotateDir = Math.floor(Math.random()*2)*2-1;
+				this.rotateFlux = (Math.random()*2*Math.PI);
+				this.targetReached = true;
+				this.targetDistance = 0;
+				this.targetX = 0;
+				this.targetY = 0;
+				this.moveX = 0;
+				this.moveY = 0;
+			}
+			
+			wavePoint.prototype =
+			{
+				getRotationVector: function()
+				{
+					return { x: Math.sin( this.rotation ), y: Math.cos(this.rotation) };
+				},
+				update: function( timeDiff )
+				{
+					if( this.targetReached )
+					{
+						this.targetX = Math.random() * 1000 - 500;
+						this.targetY = Math.random() * 1000 - 500;
+						this.moveX = this.targetX - this.offsetX;
+						this.moveY = this.targetY - this.offsetY;
+						this.targetDistance = Math.sqrt( this.moveX * this.moveX + this.moveY * this.moveY );
+						this.moveX /= this.targetDistance;
+						this.moveY /= this.targetDistance;
+						this.targetReached = false;
+					}
+					
+					var dist = timeDiff/50;
+					
+					this.targetDistance -= dist;
+					
+					this.offsetX += this.moveX * dist;
+					this.offsetY += this.moveY * dist;
+					
+					if( this.targetDistance < 5  ){
+						this.targetReached = true;
+					}
+					
+					this.rotateFlux += 0.0025;
+					var factor = Math.sin( this.rotateFlux )*2;
+					this.rotation += this.rotateDir * timeDiff/500 * factor *  0.025;
+				}
+			}
+			
+			/**
+			 * wave represents one chain of bezier curves 
+			 **/
+			function wave( dots )
+			{
+				this.hsl = [0,1,0.5];
+				this.hueRotation = 0;
+				this.hueVariance = 0.11111;
+				this.hueMode = 1; // mode one will rotate thru all colors
+				this.hueDir = 1;
+				this.recreatePoints(dots);
+			}
+			
+			wave.prototype = 
+			{
+				recreatePoints: function( count )
+				{
+					if( count < 2) count =2;
+					this.points = [];
+					for( var i = 0; i <= count; i++ )
+					{
+						var pt = new wavePoint();
+						pt.distanceFromStart = i / count;
+						if( i == 0 ) pt.distanceFromStart = -0.1;
+						if( i == count ) pt.distanceFromStart = 1.1;
+						pt.offsetX = Math.random()*500 - 250;
+						pt.offsetY = Math.random()*500 - 250;
+						pt.rotation = Math.random()*2*Math.PI;
+						this.points[i] = pt;
+					}
+				},
+				/*
+				getPrevBezierPointFor: function( x0, y0, x1, y1, x2, y2 )
+				{
+					
+					var vx = x2 - x0;
+					var vy = x2 - x0;
+					var len = Math.sqrt( vx * vx + vy * vy );
+					vx /= len;
+					vy /= len;
+					
+					return { x: vx, y: vy };
+					
+				},
+				getNextBezierPointFor: function( x0, y0, x1, y1, x2, y2 )
+				{
+					
+					var vx = x2 - x0;
+					var vy = x2 - x0;
+					var len = Math.sqrt( vx * vx + vy * vy );
+					vx /= len;
+					vy /= len;
+					
+					return { x: vx, y: vy };					
+				},*/
+				draw: function(ctx, timeDiff, screenWidth, screenHeight, height)
+				{
+					var scale = screenHeight / 3;
+					var scale2 = ( screenWidth + screenHeight ) / 8;
+					scale = scale;
+					
+					var color;
+					if( this.hueMode == 0 ) {
+						this.hueRotation += this.hueDir * timeDiff/500;
+						var hsl = [
+							this.hsl[0] + Math.sin( this.hueRotation ) * this.hueVariance,
+							this.hsl[1],
+							this.hsl[2],
+						];
+
+						color = 'hsla(' + hsl[0]*360 + ', ' + hsl[1]*100 + '%, ' + hsl[2]*100 + '%, 0.75)';
+					}
+					else {
+						this.hsl[0] = ( this.hsl[0] + this.hueDir * timeDiff/500 * 2 * 0.002 ) % 360;
+
+						color = 'hsla(' + this.hsl[0]*360 + ', ' + this.hsl[1]*100 + '%, ' + this.hsl[2]*100 + '%, 0.75)';
+					}
+					
+					var pointCount = this.points.length-1;
+					for( var i = 0; i <= pointCount; i++ ) {
+						this.points[i].update( timeDiff );
+					}
+					
+					var sx = -1;
+					var sy = height;
+					var ex = screenWidth+1;
+					var ey = height;
+					
+					var dx = ex - sx;
+					var dy = ey - sy;
+					
+					var cx = sx + dx * this.points[0].distanceFromStart;
+					var cy = sy + dy * this.points[0].distanceFromStart;
+					var px = cx;
+					var py = cy;
+					
+					ctx.beginPath();
+					ctx.lineWidth = 1.001;
+					ctx.strokeStyle = color;
+					ctx.moveTo(cx,cy); // start of curve
+					for( var i = 1; i <= pointCount; i++ ) {
+						var j = i + 1;
+						if( j > pointCount ) j = pointCount;
+						
+						var nx2 = sx + ( ( j == pointCount ) ? 0 : this.points[j].offsetX/500*scale ) + dx * this.points[j].distanceFromStart;
+						var ny2 = sy + ( ( j == pointCount ) ? 0 : this.points[j].offsetY/500*scale ) + dy * this.points[j].distanceFromStart;
+						var nx = sx + ( ( i == pointCount ) ? 0 : this.points[i].offsetX/500*scale )  + dx * this.points[i].distanceFromStart;
+						var ny = sy + ( ( i == pointCount ) ? 0 : this.points[i].offsetY/500*scale )  + dy * this.points[i].distanceFromStart;
+						
+						var bz1 = this.points[i-1].getRotationVector();
+						var bz2 = this.points[i].getRotationVector();
+						//var bz3 = this.getNextBezierPointFor(px,py,cx,cy,nx,ny);
+						//var bz4 = this.getPrevBezierPointFor(cx,cy,nx,ny,nx2,ny2);
+						//bz1.x = ( bz1.x + bz3.x ) / 2;
+						//bz1.y = ( bz1.y + bz3.y ) / 2;
+						//bz2.x = ( bz2.x + bz4.x ) / 2;
+						//bz2.y = ( bz2.y + bz4.y ) / 2;
+						var dist1 = Math.sqrt( (cx-nx) * (cx-nx) + (cy-ny) * (cy-ny) );
+						
+						ctx.bezierCurveTo(	cx + bz1.x*dist1/1.5, cy + bz1.y*dist1/1.5, // bezier point 1
+											nx - bz2.x*dist1/1.5, ny - bz2.y*dist1/1.5, // bezier point 2
+											nx, ny ); // end of curve
+											
+						px = cx;
+						py = cy;
+						cx = nx;
+						cy = ny;
+											
+					}
+					ctx.stroke();
+				}
+			}
+			
+			function ease(t) { return t; } //{ return t<.5 ? 2*t*t : -1+(4-2*t)*t; }
+			
+			/**
+			 * WavePoint class represents a control point on the bezier curve 
+			 **/
+			function wavePoint2()
+			{
+				this.distanceFromStart = 0;
+				this.offsetX = 0;
+				this.offsetY = 0;
+				this.rotation = 0;
+				this.rotateDir = Math.floor(Math.random()*2)*2-1;
+				this.rotateFlux = (Math.random()*2*Math.PI);
+				this.targetReached = true;
+				this.targetDistance = 0;
+				this.targetX = 0;
+				this.targetY = 0;
+				this.moveX = 0;
+				this.moveY = 0;
+			}
+			wavePoint2.prototype =
+			{
+				getRotationVector: function()
+				{
+					return { x: Math.sin( this.rotation ), y: Math.cos(this.rotation) };
+				},
+				update: function( timeDiff )
+				{
+					/*
+					if( this.targetReached )
+					{
+						this.targetX = Math.random() * 1000 - 500;
+						this.targetY = Math.random() * 1000 - 500;
+						this.moveFromX = this.offsetX;
+						this.moveFromY = this.offsetY;
+						this.moveX = this.targetX - this.offsetX;
+						this.moveY = this.targetY - this.offsetY;
+						this.targetDistance = Math.sqrt( this.moveX * this.moveX + this.moveY * this.moveY );
+						this.movedDistance = 0;
+						this.moveX /= this.targetDistance;
+						this.moveY /= this.targetDistance;
+						this.targetReached = false;
+					}
+					
+					var dist = timeDiff/25;
+					
+					this.movedDistance += dist;
+					
+					this.offsetX = this.moveFromX + ease(this.movedDistance/this.targetDistance) * this.targetDistance  * this.moveX;
+					this.offsetY = this.moveFromY + ease(this.movedDistance/this.targetDistance) * this.targetDistance * this.moveY;
+					
+					if( this.movedDistance > this.targetDistance  ){
+						this.targetReached = true;
+					}
+					
+					this.rotateFlux += 0.0025;
+					var factor = Math.sin( this.rotateFlux )*2;
+					this.rotation += this.rotateDir * timeDiff/500 * factor *  0.025;*/
+				}
+			}
+			
+			
+			
+			/**
+			 * WavePoint class represents a control point on the bezier curve 
+			 **/
+			function wavePoint2Link( wp1, wp2 )
+			{
+				this.point1 = wp1;
+				this.point2 = wp2;
+				this.distanceFromStart = ( wp1.distanceFromStart + wp2.distanceFromStart ) / 2;
+				this.offsetX = 0;
+				this.offsetY = 0;
+				
+				this.minLinkLength = 100;
+				this.maxLinkLength = 750;
+				
+				this.linkLengthRotation = (Math.random()*2*Math.PI);
+				
+				this.rotation = (Math.random()*2*Math.PI);
+				this.rotateDir = Math.floor(Math.random()*2)*2-1;
+				this.rotateFlux = (Math.random()*2*Math.PI);
+				this.targetReached = true;
+				this.targetDistance = 0;
+				this.targetX = 0;
+				this.targetY = 0;
+				this.moveSpeed = 1;
+				this.moveX = 0;
+				this.moveY = 0;
+			}
+			wavePoint2Link.prototype =
+			{
+				getRotationVector: function()
+				{
+					return { x: Math.sin( this.rotation ), y: Math.cos(this.rotation) };
+				},
+				drawDebug: function( ctx, sx, sy, dx, dy, scale1, scale2 )
+				{
+					var x1 = sx + dx * this.point1.distanceFromStart + this.point1.offsetX/500*scale1;
+					var y1 = sy + dy * this.point1.distanceFromStart + this.point1.offsetY/500*scale2;
+					var x2 = sx + dx * this.point2.distanceFromStart + this.point2.offsetX/500*scale1;
+					var y2 = sy + dy * this.point2.distanceFromStart + this.point2.offsetY/500*scale2;
+					
+					ctx.lineWidth = 0.5;
+					ctx.strokeStyle = 'white';
+					ctx.beginPath();
+					ctx.moveTo( x1, y1 );
+					ctx.lineTo( x2, y2 );
+					ctx.stroke();
+					
+				},
+				update: function( timeDiff )
+				{
+					if( this.targetReached )
+					{
+						var maxLoops = 100;
+						
+						do {
+							this.targetX = Math.random() * 1000 - 500;
+							this.targetY = Math.random() * 1000 - 500;
+
+							this.moveFromX = this.offsetX;
+							this.moveFromY = this.offsetY;
+							this.moveX = this.targetX - this.offsetX;
+							this.moveY = this.targetY - this.offsetY;
+							this.targetDistance = Math.sqrt( this.moveX * this.moveX + this.moveY * this.moveY );
+						} 
+						while( this.targetDistance < 600 && maxLoops-- > 0);
+						this.moveSpeed = 500 / this.targetDistance;
+						this.movedDistance = 0;
+						this.moveX /= this.targetDistance;
+						this.moveY /= this.targetDistance;
+						this.targetReached = false;
+					}
+					
+					var dist = timeDiff * this.moveSpeed / 25;
+					
+					this.movedDistance += dist;
+					
+					this.offsetX = this.moveFromX + ease(this.movedDistance/this.targetDistance) * this.targetDistance * this.moveX;
+					this.offsetY = this.moveFromY + ease(this.movedDistance/this.targetDistance) * this.targetDistance * this.moveY;
+					
+					if( this.movedDistance > this.targetDistance  ){
+						this.targetReached = true;
+					}
+					
+					this.rotateFlux += 0.0025;
+					var factor = Math.sin( this.rotateFlux );
+					this.rotation += this.rotateDir * timeDiff/150 * factor *  0.05;
+					
+					
+					this.linkLengthRotation += 0.00025;
+					var factor = (Math.sin( this.linkLengthRotation )+1)/2;
+					var len = this.minLinkLength + ( this.maxLinkLength - this.minLinkLength ) * Math.abs(factor);
+					
+					this.point1.offsetX = this.offsetX + Math.sin( this.rotation ) * len;
+					this.point1.offsetY = this.offsetX + Math.cos( this.rotation ) * len;
+					this.point2.offsetX = this.offsetY + -Math.sin( this.rotation ) * len;
+					this.point2.offsetY = this.offsetY + -Math.cos( this.rotation ) * len;
+				}
+			}
+			
+			
+			/**
+			 * wave represents one chain of bezier curves 
+			 **/
+			function wave2( dots )
+			{
+				this.hsl = [0,1,0.5];
+				this.hueRotation = 0;
+				this.hueVariance = 0.11111;
+				this.hueMode = 1; // mode one will rotate thru all colors
+				this.hueDir = 1;
+				this.recreatePoints(dots);
+			}
+			
+			wave2.prototype = 
+			{
+				correctDotCount: function( count )
+				{
+					if( count < 2) count = 2;
+					if( count % 2 == 1 ) count++;
+					return count;
+				},
+				recreatePoints: function( count )
+				{
+					count = this.correctDotCount( count );
+					count += 4;
+					
+					this.points = [];
+					this.links = [];
+					for( var i = 0; i <= count; i++ )
+					{
+						var pt = new wavePoint2();
+						pt.distanceFromStart = (i-1.5) / (count-4); // 0 = -1.5 / 1 = -0.5 / 2 = 0.5 / 3 = 1.5 / 4 = 2.5 / 5 = 3.5
+						//if( i == 0 ) pt.distanceFromStart = -0.1;
+						//if( i == count ) pt.distanceFromStart = 1.1;
+						pt.offsetX = Math.random()*1000 - 500;
+						pt.offsetY = Math.random()*1000 - 500;
+						pt.rotation = Math.random()*2*Math.PI;
+						this.points[i] = pt;
+					}
+					for( var i = 0; i < count/2-1; i++ ){
+						var link = new wavePoint2Link( this.points[1 + i * 2], this.points[2 + i * 2] );
+						link.rotation = Math.random()*2*Math.PI;
+						this.links.push( link );
+					}
+				},
+				/*
+				getPrevBezierPointFor: function( x0, y0, x1, y1, x2, y2 )
+				{
+					
+					var vx = x2 - x0;
+					var vy = x2 - x0;
+					var len = Math.sqrt( vx * vx + vy * vy );
+					vx /= len;
+					vy /= len;
+					
+					return { x: vx, y: vy };
+					
+				},
+				getNextBezierPointFor: function( x0, y0, x1, y1, x2, y2 )
+				{
+					
+					var vx = x2 - x0;
+					var vy = x2 - x0;
+					var len = Math.sqrt( vx * vx + vy * vy );
+					vx /= len;
+					vy /= len;
+					
+					return { x: vx, y: vy };					
+				},*/
+				draw: function(ctx, timeDiff, screenWidth, screenHeight, height)
+				{
+					var dots = Math.ceil( screenWidth * 1.7 / screenHeight );
+					dots = this.correctDotCount( dots );
+					
+					var scale = screenHeight / 2;
+					var scale2 = screenWidth / dots;
+					
+					var color;
+					if( this.hueMode == 0 ) {
+						this.hueRotation += this.hueDir * timeDiff/10000;
+						var hsl = [
+							this.hsl[0] + Math.sin( this.hueRotation ) * this.hueVariance,
+							this.hsl[1],
+							this.hsl[2],
+						];
+
+						color = 'hsla(' + hsl[0]*360 + ', ' + hsl[1]*100 + '%, ' + hsl[2]*100 + '%, 1)';
+					}
+					else {
+						this.hsl[0] = ( this.hsl[0] + this.hueDir * timeDiff/400 * 2 * 0.002 ) % 360;
+
+						color = 'hsla(' + this.hsl[0]*360 + ', ' + this.hsl[1]*100 + '%, ' + this.hsl[2]*100 + '%, 1)';
+					}
+					
+					var pointCount = this.points.length-1;
+					var linkCount = this.links.length;
+					for( var i = 0; i <= pointCount; i++ ) {
+						this.points[i].update( timeDiff );
+					}
+					for( var i = 0; i < linkCount; i++ ){
+						this.links[i].update( timeDiff );
+					}
+					
+					var sx = -1;
+					var sy = height;
+					var ex = screenWidth+1;
+					var ey = height;
+					
+					var dx = ex - sx;
+					var dy = ey - sy;
+					
+					
+					var cx = sx + dx * this.points[0].distanceFromStart;
+					var cy = sy + dy * this.points[0].distanceFromStart;
+					var px = cx;
+					var py = cy;
+					
+					ctx.beginPath();
+					ctx.lineWidth = 0.1;
+					ctx.strokeStyle = color;
+					ctx.moveTo(cx,cy); // start of curve
+					for( var i = 1; i <= pointCount-2; i++ ) {
+						var j = i + 1;
+						var k = i + 2;
+						
+						var pt1 = this.points[i];
+						var pt2 = this.points[j];
+						var pt3 = this.points[k];
+						
+						//var nx = sx + ( ( i == pointCount ) ? 0 : this.points[i].offsetX/500*scale )  + dx * this.points[i].distanceFromStart;
+						//var ny = sy + ( ( i == pointCount ) ? 0 : this.points[i].offsetY/500*scale )  + dy * this.points[i].distanceFromStart;
+						//var nx = sx + ( ( i == pointCount ) ? 0 : this.points[i].offsetX/500*scale )  + dx * this.points[i].distanceFromStart;
+						//var ny = sy + ( ( i == pointCount ) ? 0 : this.points[i].offsetY/500*scale )  + dy * this.points[i].distanceFromStart;
+						var pt2x = sx + ( ( j == pointCount ) ? 0 : pt2.offsetX/500*scale2 )  + dx * pt2.distanceFromStart;
+						var pt2y = sy + ( ( j == pointCount ) ? 0 : pt2.offsetY/500*scale )  + dy * pt2.distanceFromStart;
+						var pt3x = sx + ( ( k == pointCount ) ? 0 : pt3.offsetX/500*scale2 )  + dx * pt3.distanceFromStart;
+						var pt3y = sy + ( ( k == pointCount ) ? 0 : pt3.offsetY/500*scale )  + dy * pt3.distanceFromStart;
+						
+						//var sx = pt1.x + ( pt2.x-pt1.x)/2;
+						//var sx = pt1.y + ( pt2.y-pt1.y)/2;
+						var ex = pt2x + ( pt3x-pt2x)/2;
+						var ey = pt2y + ( pt3y-pt2y)/2;
+						if( k == pointCount ) {
+							ex = pt3x;
+							ey = pt3y;
+						}
+						
+						ctx.quadraticCurveTo( pt2x, pt2y, ex, ey ); // end of curve
+											
+											
+					}
+					ctx.stroke();
+					
+					
+					for( var i = 0; i < linkCount; i++ ){
+						//this.links[i].drawDebug( ctx, sx, sy, dx, dy, scale, scale2 );
+					}
+					
+				}
+			}
+			
+			/**
+			 *  fairly generic setup for wallpaper
+			 * 		 - initializes
+			 * 		 - handles window.resize
+			 * 		 - has animation loop
+			 **/
+			function wallpaper()
+			{
+				this.canvas = null;
+				this.context = null;
+					
+				var dots = 2;
+				
+				this.wave1 = new wave2(dots);
+				this.wave1.hsl = [0,1,0.5];
+				this.wave1.hueDir = -1;
+				this.wave2 = new wave2(dots);
+				this.wave2.hsl = [0.3333,1,0.5];
+				this.wave2.hueDir = 1;
+				this.wave3 = new wave2(dots);
+				this.wave3.hsl = [0.6666,1,0.5];
+				this.wave3.hueDir = 1;
+				this.wave4 = new wave2(dots);
+				this.wave4.hsl = [0.3333,1,0.5];
+				this.wave4.hueDir = 1;
+				this.wave5 = new wave2(dots);
+				this.wave5.hsl = [0,1,0.5];
+				this.wave5.hueDir = -1;
+				
+				this.schemeColor = null;
+				this.ticks = 0;
+				
+				this.init();
+				
+				this.lastFrame = performance.now();
+				this.fpsTimer = performance.now();
+				
+			}
+			
+			wallpaper.prototype = {
+				init: function()
+				{
+					this.canvas = document.getElementById('canvas');
+					this.canvas.style.transformOrigin = '0 0';
+					this.canvas.style.transform = 'scale(0.82)';
+					this.context = this.canvas.getContext('2d');
+
+
+					this.refreshAll();
+					
+					var self = this;
+					window.addEventListener('resize', function () { self.onWindowResize(); } );					
+					//window.requestAnimationFrame( function() { self.animationLoop(); } );
+					setTimeout( function() { self.animationLoop(); }, 1 );
+				},
+				/*
+				setSchemeColor: function(hslArray)
+				{
+					this.schemeColor = hslArray;
+					this.wave1.hsl = hslArray;
+					this.wave2.hsl = hslArray;
+					this.wave3.hsl = hslArray;
+					this.wave4.hsl = hslArray;
+					this.wave5.hsl = hslArray;
+					this.wave1.hueMode = 0;
+					this.wave2.hueMode = 0;
+					this.wave3.hueMode = 0;
+					this.wave4.hueMode = 0;
+					this.wave5.hueMode = 0;
+				},
+				setSchemeAltColor: function(hslArray)
+				{
+					this.wave2.hsl = hslArray;
+					this.wave4.hsl = hslArray;
+					this.wave2.hueMode = 0;
+					this.wave4.hueMode = 0;
+				},
+				*/
+				onWindowResize: function()
+				{
+					this.refreshAll();
+
+				},
+				refreshAll: function()
+				{
+					this.width = this.canvas.width = window.innerWidth/0.8;
+					this.height = this.canvas.height = window.innerHeight/0.8;
+					
+					var dots = Math.ceil( this.width * 1.7 / this.height );
+					dots = this.wave1.correctDotCount( dots );
+					// if new resolutions requires different point count, recreate points 
+					if( dots+5 != this.wave1.points.length ) {
+						this.wave1.recreatePoints(dots);
+						this.wave2.recreatePoints(dots);
+						this.wave3.recreatePoints(dots);
+						this.wave4.recreatePoints(dots);
+						this.wave5.recreatePoints(dots);
+					}
+					
+					this.burstFrames = 2000;
+					
+					this.context.lineWidth = 0;
+					this.context.fillStyle = '#202020';
+					this.context.fillRect(0, 0, this.width, this.height);
+	
+				},
+				animationLoop: function(  )
+				{
+					var self = this;		
+					
+					var now = performance.now();
+					var timeStep = now - this.lastFrame;
+					
+					
+					//setTimeout( function() { self.animationLoop(); }, (1000/20)  ); // divide by desired framerate
+					window.requestAnimationFrame( function() { self.animationLoop(); } );
+					if( this.burstFrames <= 0 && timeStep < 48 ) { // skip frame until timeStep ( in milliseconds ) has passed
+						return;
+					}
+					this.lastFrame = now;
+					//
+					
+					var renderFrames = 1;
+					if( this.burstFrames> 0 ) {
+						renderFrames = this.burstFrames > 10000 ? 10000 : this.burstFrames;
+						this.burstFrames -= renderFrames;
+					}
+					for( var i = 0; i < renderFrames; i++ ) {
+						this.ticks++;
+
+						if( this.ticks%10 == 0 ) {
+							this.context.lineWidth = 0;
+							this.context.fillStyle = 'rgba( 0, 0, 0, 0.05 )';
+							this.context.fillRect(0, 0, this.width, this.height);
+						}
+
+						//if( timeStep > 100 ) timeStep = 100; // protect against inactivity to cause huge intervals
+						var timeStep = 16 ; //fix timestep for a smoother result.
+
+						// draw each wave, pass current screen width,  height as well as the height to place the line on.
+						this.wave1.draw(this.context, timeStep, this.width, this.height, this.height / 10 * 1);
+						this.wave5.draw(this.context, timeStep, this.width, this.height, this.height / 10 * 9);
+						this.wave2.draw(this.context, timeStep, this.width, this.height, this.height / 10 * 2.5);
+						this.wave4.draw(this.context, timeStep, this.width, this.height, this.height / 10 * 7.5);
+						this.wave3.draw(this.context, timeStep, this.width, this.height, this.height / 10 * 5);
+					}
+					//this.updateFps();
+				},
+				updateFps: function()
+				{
+					var now = performance.now();
+					this.frames++;
+					if( now - this.fpsTimer > 1000 ) {					
+						var frames = this.frames;
+						fpsLabel.innerHTML = frames + ' fps / ' + this.ticks + ' ticks';
+						this.fpsTimer = now;
+						this.frames = 0;
+					}
+				}
+			};
+			
+			var w = new wallpaper();
+		</script>
+	</body>
+</html>

@@ -15,10 +15,10 @@
   </script>
   <!-- End Google Site Tag -->
 
-  <title>traditionally modern</title>
+  <title></title>
 
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=no">
   <meta name="keywords" content="design,pitch,code,fund,market,support" />
   <meta name="description" content="venture marketplace" />
   <meta name="theme-color" content="#0d0e18">
@@ -29,13 +29,12 @@
   <meta property="og:title" content="traditionally modern" />
   <meta property="og:description"
     content="team discovery, angel investments, modern frameworks, native designs, brilliantly scaleable, continuous delivery" />
-  <meta property="og:image" content="https://appeligo.com/img/social-preview.png" />
+  <meta property="og:image" content="https://appeligo.com/pwa/img/social-preview.png" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@appeligo" />
   <meta name="twitter:creator" content="@appeligo" />
 
-  <link rel="stylesheet" href="https://use.typekit.net/gzc7ibl.css">
   <link rel="stylesheet" href="/pwa/css/color.css" type="text/css" />
   <link rel="stylesheet" href="/pwa/css/font.css" type="text/css" />
   <link rel="stylesheet" href="/pwa/css/layout.css" type="text/css" />
@@ -44,109 +43,44 @@
   <link rel="canonical" href="https://appeligo.com" />
   <link rel="manifest" href="/manifest.json">
 
-  <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/lcbhdgefieegnkbopmgklhlpjjdgmbog" />
+  <link rel="stylesheet" href="/video/css/video-js.css" type="text/css" />
   <style>
-    .fullscreen {
-      background-color: var(--main-back-color);
-      background-image: url(img/wallpaper/image-2.jpg);
-      background-position: right;
-      background-repeat: no-repeat;
-      background-size: cover;
-      height: 100vh;
+    .js-focus-visible :focus:not(.focus-visible) {
+      outline: none;
     }
   </style>
 </head>
 
-<body class="tk-gibbs fullscreen">
+<body oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false" -->
 
-  <div class="topnav noselect">
-    <a href="/pwa/" border="0">
-      <img class="site-icon" src="/pwa/img/name-dark.png" />
-    </a>
-  </div>
+  <div class="flexbox-video-cards">
 
-  <div class="flex-container">
+    <div class="flexbox-video-card">
 
-    <a class="card" href="/allowme/">
-      <div class="card">
-        <div class="container">
-          <p class="fs2 fw5">allow<span class="suffix">me</span></p>
-          <p class="fs6 fw4 smitten">IDEAL COMPANIONSHIP</p>
-          <img src="/allowme/img/icon-dark.png" height="50" width="50" />
-        </div>
+      <div class="flexbox-video">
+        <video class="video-js vjs-fluid" preload="auto" poster="/video/media/poster.jpg"
+          data-setup='{ "aspectRatio": "16:9", "autoplay": "muted", "loop": true}'>
+          <source src="/video/media/scene-mythical.webm" type='video/webm' />
+        </video>
+
+        <div class="header noselect">
+            <a href="/pwa/">
+              <img class="site-icon" src="/pwa/img/icon-dark.png" />
+              <img class="site-name" src="/pwa/img/name-dark.png" />
+            </a>
+          </div>
       </div>
-    </a>
 
-    <a class="card" href="/cameraone/">
-      <div class="card">
-        <div class="container">
-          <p class="fs2 fw5">camera<span class="suffix">one</span></p>
-          <p class="fs6 fw4 dawn">DEVELOPING CHARACTER</p>
-          <img src="/cameraone/img/icon-dark.png" height="50" width="50" />
-        </div>
-      </div>
-    </a>
 
-    <a class="card" href="/famoola/">
-      <div class="card">
-        <div class="container">
-          <p class="fs2 fw5">famoola</p>
-          <p class="fs6 fw4 moola">THE FAMILY BUSINESS</p>
-          <img src="/famoola/img/icon-dark.png" height="50" width="50" />
-        </div>
-      </div>
-    </a>
 
-    <a class="card" href="/video/">
-      <div class="card">
-        <div class="container">
-          <p class="fs2 fw5">&nbsp;</p>
-          <p class="fs6 fw4 moola">&nbsp;</p>
-          <img src="/famoola/img/icon-dark.png" style="opacity: 0;" height="50" width="50" />
-        </div>
-      </div>
-    </a>
 
-    <a class="card" href="/pictures/">
-      <div class="card">
-        <div class="container">
-          <p class="fs2 fw5">&nbsp;</p>
-          <p class="fs6 fw4 moola">&nbsp;</p>
-          <img src="/famoola/img/icon-dark.png" style="opacity: 0;" height="50" width="50" />
-        </div>
-      </div>
-    </a>
 
-    <a class="card" href="/video/">
-      <div class="card">
-        <div class="container">
-          <p class="fs2 fw5">&nbsp;</p>
-          <p class="fs6 fw4 moola">&nbsp;</p>
-          <img src="/famoola/img/icon-dark.png" style="opacity: 0;" height="50" width="50" />
-        </div>
-      </div>
-    </a>
-
-  </div>
-
-  <div class="footer fw6 fs6">
-    <div style="float: left; width: 90%; text-align: left;">
-      <p id="message">&nbsp;</p>
-    </div>
-    <div style="float: left; width: 10%; text-align: right;">
-      <a href="/pwa/slideshow.html">
-        <img src="/pwa/img/icon-dark.png" height="20" />
-      </a>
-      <a href="/video/">
-        <img src="/pwa/img/icon-dark.png" height="20" />
-      </a>
-      <a href="/video/youtube.html">
-        <img src="/pwa/img/icon-dark.png" height="20" />
-      </a>
     </div>
   </div>
 
+  <script type="text/javascript" src='/video/js/video.js'></script>
+  <script type="text/javascript" src="/video/js/focus-visible.js"></script>
 </body>
-<script type="text/javascript" src="/pwa/js/main.js"></script>
+
 
 </html>

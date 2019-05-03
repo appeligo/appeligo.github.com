@@ -32,7 +32,7 @@ function showJson(json) {
     var idx = Math.floor(Math.random() * json.quotes.length);
     var quote = json.quotes[idx];
 
-    message.textContent = quote.text;
+    message.innerHTML = "&#10077;&nbsp;" + quote.text + "&nbsp;&#10078;";
 }
 
 function fetchText(pathToResource) {
@@ -51,7 +51,12 @@ function fetchJson(pathToResource) {
         .catch(logError);
 }
 
-//fetchText('/features.txt');
+$("[data-load]").each(function (index) {
+    var html = $(this).attr("data-load");
+    $(this).load(html);
+});
+
+
 fetchJson('/pwa/data/quotes.json');
 
 //fetchProspects('/pwa/data/prospects.json');
