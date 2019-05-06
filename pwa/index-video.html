@@ -43,40 +43,39 @@
   <link rel="canonical" href="https://appeligo.com" />
   <link rel="manifest" href="/manifest.json">
 
-  <link rel="stylesheet" href="/plugins/solar/solar.css" type="text/css">
-  <link rel="stylesheet" href="/plugins/solar/stars.css" type="text/css">
-  <script type="text/javascript" src="/plugins/solar/settings.js"></script>
-
+  <link rel="stylesheet" href="/video/css/video-js.css" type="text/css" />
+  <style>
+    .js-focus-visible :focus:not(.focus-visible) {
+      outline: none;
+    }
+  </style>
 </head>
 
-<body class="enable-animations layout-column" shortcuts="">
-  <div class="space">
-    <div class="stars" id="stars"></div>
-    <div class="stars2" id="stars2"></div>
-    <div class="stars3" id="stars3"></div>
-    <div class="solar-syst">
-      <div class="sun"></div>
-      <div class="mercury"></div>
-      <div class="venus"></div>
-      <div class="earth"></div>
-      <div class="mars"></div>
-      <div class="jupiter"></div>
-      <div class="saturn"></div>
-      <div class="uranus"></div>
-      <div class="neptune"></div>
-      <div class="pluto"></div>
-      <div class="asteroids-belt"></div>
+<body oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false">
+
+  <div class="flexbox-video-cards">
+
+    <div class="flexbox-video-card">
+
+      <div class="flexbox-video">
+        <video class="video-js vjs-fluid" preload="auto" poster="/video/media/poster.jpg"
+          data-setup='{ "aspectRatio": "16:9", "autoplay": "muted", "loop": true}'>
+          <source src="/video/media/scene-mythical.webm" type='video/webm' />
+        </video>
+
+
+      </div>
+
+
+
+
+
     </div>
   </div>
 
-  <div class="header noselect">
-    <a href="/pwa/">
-      <img class="site-icon" src="/pwa/img/icon-dark.png" />
-      <img class="site-name" src="/pwa/img/name-dark.png" />
-    </a>
-  </div>
+  <script type="text/javascript" src='/video/js/video.js'></script>
+  <script type="text/javascript" src="/video/js/focus-visible.js"></script>
 </body>
-
 
 
 </html>
