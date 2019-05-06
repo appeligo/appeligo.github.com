@@ -1,0 +1,27 @@
+{
+	"description" : "Color changing wave patterns",
+	"file" : "index.html",
+	"general" : 
+	{
+		"properties" : 
+		{
+			"altcolor" : 
+			{
+				"text" : "Alternative Color",
+				"type" : "color",
+				"value" : "0 1 0"
+			},
+			"schemecolor" : 
+			{
+				"text" : "Scheme color",
+				"type" : "color",
+				"value" : "0.0 0.0 0.5"
+			}
+		}
+	},
+	"preview" : "preview.jpg",
+	"tags" : [ "Abstract" ],
+	"title" : "Mystical Waves",
+	"type" : "web",
+	"visibility" : "public"
+}
