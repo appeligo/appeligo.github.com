@@ -20,9 +20,9 @@ function onYouTubeIframeAPIReady() {
             'iv_load_policy': 3,
             //'list': 'PLB5odjO0TG0eOudh-hr73gzIOsB6gDwHf',
             //'listType': 'playlist',
-            'origin': 'https://dirck.ngrok.io',
+            'origin': 'https://dirck.appeligo.com',
             'playsinline': 1,
-            'widget_referrer': 'https://dirck.ngrok.io'
+            'widget_referrer': 'https://dirck.appeligo.com'
         },
         events: {
             'onReady': onPlayerReady,
@@ -51,7 +51,7 @@ function newRandomNumber() {
 
 function onPlayerReady(event) {
     console.log(event);
-    event.target.mute();
+    //event.target.mute();
     event.target.loadPlaylist({ "listType": "playlist", "list": "PLB5odjO0TG0eOudh-hr73gzIOsB6gDwHf" });
 }
 
