@@ -1,31 +1,20 @@
 {
-    "short_name": "appeligo",
-    "name": "dreamers welcome",
-    "icons": [
-      {
-        "src": "/pwa/img/icon-dark-16.png",
-        "type": "image/png",
-        "sizes": "16x16"
-      },
-      {
-        "src": "/pwa/img/icon-dark-32.png",
-        "type": "image/png",
-        "sizes": "32x32"
-      },
-      {
-        "src": "/pwa/img/icon-dark-192.png",
-        "type": "image/png",
-        "sizes": "192x192"
-      },
-      {
-        "src": "/pwa/img/icon-dark-512.png",
-        "type": "image/png",
-        "sizes": "512x512"
-      }
-    ],
-    "start_url": "/index.html",
-    "background_color": "#27293d",
-    "display": "fullscreen",
-    "scope": "/",
-    "theme_color": "#27293d"
-  }
+  "short_name": "appeligo",
+  "name": "dreamers welcome",
+  "icons": [{
+      "src": "/static/img/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/static/img/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/splash.html",
+  "background_color": "#27293d",
+  "display": "fullscreen",
+  "scope": "/",
+  "theme_color": "#27293d"
+}

@@ -1,0 +1,12 @@
+{
+    "web": {
+        "client_id": "814810282938-gnnaum7gsgq78l3vb8tkrr3jmq5u5bhn.apps.googleusercontent.com",
+        "project_id": "appeligo",
+        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+        "token_uri": "https://oauth2.googleapis.com/token",
+        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+        "client_secret": "ezotZLMGa2VXar0RWCPMRqE4",
+        "redirect_uris": ["https://appeligo.com", "https://dirck.appeligo.com"],
+        "javascript_origins": ["https://appeligo.com", "https://dirck.appeligo.com"]
+    }
+}
