@@ -7,30 +7,25 @@
     <link rel="stylesheet" href="/static/css/font.css" type="text/css" />
     <link rel="stylesheet" href="/static/css/layout.css" type="text/css" />
     <style>
-        body, html {
+        body,
+        html {
             height: 100%;
             display: grid;
         }
-        span { /* thing to center */
+
+        span {
+            /* thing to center */
             margin: auto;
         }
     </style>
 </head>
 
 <body>
-    
+
     <span>
-        <img src="/static/img/animated/icon-dark.svg" style="height: 500px; width: 500px;"/>
+        <img src="/static/img/animated/icon-dark.svg" style="height: 500px; width: 500px;" />
     </span>
 
-    <script type="text/javascript">
-        if (navigator.serviceWorker != null) {
-            navigator.serviceWorker.register('sw.js')
-                .then(function (registration) {
-                    console.log('Registered events at scope: ', registration.scope);
-                });
-        }
-    </script>
 </body>
 
 </html>

@@ -45,6 +45,8 @@
   <link rel="stylesheet" href="/static/css/font.css" type="text/css" />
   <link rel="stylesheet" href="/static/css/layout.css" type="text/css" />
 
+  <link rel="stylesheet" href="/static/css/layou" type="text/css" />
+
   <link rel="icon" href="/static/img/icon-light.png" />
   <link rel="apple-touch-icon" href="/static/img/icon-light.png" />
   <link rel="canonical" href="https://appeligo.com" />
@@ -83,6 +85,15 @@
 
   </div>
 
+  <script type="text/javascript">
+    if (navigator.serviceWorker != null) {
+      navigator.serviceWorker.register('sw-swr.js')
+        .then(function (registration) {
+          console.log('Registered events at scope: ', registration.scope);
+        });
+    }
+  </script>
 </body>
+
 
 </html>
